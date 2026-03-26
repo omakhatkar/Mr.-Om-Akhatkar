@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Akhatkar - Entrepreneur & Tech Developer from Amravati</title>
+    <meta name="description" content="18-year-old Entrepreneur and Tech Developer from Amravati, Maharashtra, India">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        accent: '#FF6B00',
+                        'accent-hover': '#e66000',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @layer base {
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                background-color: #0a0a0a;
+                color: white;
+                overflow-x: hidden;
+                background-image: radial-gradient(rgba(255, 107, 0, 0.03) 1px, transparent 1px);
+                background-size: 40px 40px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 107, 0, 0.4);
+            border-radius: 9999px;
+            border: 2px solid #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 107, 0, 0.6);
+        }
+
+        /* Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #6b7280);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Nav Link Underline */
+        .nav-link {
+            position: relative;
+            color: #9ca3af;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF6B00;
+            transition: width 0.3s ease-out;
+        }
+        .nav-link:hover {
+            color: white;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Cursor */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 16px;
+            height: 16px;
+            background-color: #FF6B00;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, background-color 0.3s ease;
+            mix-blend-difference: difference;
+        }
+        #cursor.grow {
+            transform: translate(-50%, -50%) scale(4);
+            background-color: white;
+        }
+
+        /* Typewriter Animation */
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid #FF6B00;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FF6B00; }
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 107, 0, 0.4);
+            pointer-events: none;
+            filter: blur(1px);
+            animation: float 20s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Scroll Progress Bar */
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background-color: #FF6B00;
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loader */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            transition: opacity 0.5s ease-out;
+        }
+        #loader-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: #FF6B00;
+            transition: width 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="selection:bg-accent selection:text-white">
+
+    <!-- Loader -->
+    <div id="loader">
+        <div class="text-4xl font-black tracking-tighter mb-4">OM<span class="text-accent">.</span></div>
+        <div id="loader-bar"></div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div id="progress-bar"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-6 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-black tracking-tighter">OM<span class="text-accent">.</span></div>
+            <div class="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-wider">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-20 relative overflow-hidden">
+        <div id="particles-container"></div>
+        
+        <!-- Background Glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/10 rounded-full blur-[150px] -z-10"></div>
+        
+        <div class="text-center max-w-4xl relative z-10">
+            <span class="inline-block px-4 py-1.5 mb-8 bg-accent text-black text-[10px] font-black tracking-[0.2em] uppercase rounded-full shadow-[0_0_20px_rgba(255,107,0,0.3)]">
+                Available for new opportunities
+            </span>
+            
+            <div class="mb-8">
+                <h1 class="text-6xl md:text-9xl font-black tracking-tighter text-gradient typewriter">
+                    Om Akhatkar
+                </h1>
+            </div>
+
+            <p class="text-xl md:text-2xl text-gray-400 mb-12 font-light leading-relaxed reveal">
+                Driven by clarity. <span class="text-white font-medium">Operating with precision.</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-6 justify-center reveal">
+                <a href="#projects" class="px-10 py-5 bg-accent text-black font-black rounded-full hover:scale-105 hover:shadow-[0_0_40px_rgba(255,107,0,0.4)] transition-all duration-300 uppercase tracking-widest text-xs">
+                    View Projects
+                </a>
+                <a href="#contact" class="px-10 py-5 border-2 border-accent/50 text-accent font-black rounded-full hover:bg-accent hover:text-black hover:scale-105 transition-all duration-300 uppercase tracking-widest text-xs">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50">
+            <div class="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center p-1">
+                <div class="w-1 h-2 bg-white rounded-full animate-bounce"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 max-w-7xl mx-auto overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="reveal">
+                <div class="mb-12 flex justify-center md:justify-start">
+                    <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-accent p-2">
+                        <div class="w-full h-full rounded-full bg-white/5 flex items-center justify-center overflow-hidden">
+                            <i data-lucide="user" class="w-24 h-24 text-accent/20"></i>
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 bg-accent text-black p-4 rounded-full shadow-[0_0_20px_rgba(255,107,0,0.5)]">
+                            <i data-lucide="briefcase" class="w-6 h-6"></i>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black mb-8 flex items-center gap-4">
+                    <span class="text-accent">01.</span> About Me
+                </h2>
+                <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                    <p>
+                        I'm <span class="text-white font-bold">Om Akhatkar</span>, an 18-year-old Entrepreneur and Tech Developer based in Amravati, Maharashtra. 
+                    </p>
+                    <p>
+                        I believe in the power of clean code and minimalist design. My approach is centered around clarity and precision, ensuring that every project I undertake is both functional and aesthetically pleasing.
+                    </p>
+                    <div class="flex items-center gap-3 text-white font-semibold">
+                        <i data-lucide="map-pin" class="text-accent w-5 h-5"></i>
+                        <span>Amravati, Maharashtra, India</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-10 border-accent/20 reveal">
+                <h3 class="text-xl font-black mb-10 flex items-center gap-3 uppercase tracking-widest">
+                    <i data-lucide="code" class="text-accent"></i> Technical Skills
+                </h3>
+                <div class="space-y-8">
+                    <!-- Skill Item -->
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-sm font-bold text-white uppercase tracking-wider">React / Next.js</span>
+                            <span class="text-xs text-accent font-black">90%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-accent shadow-[0_0_15px_rgba(255,107,0,0.5)] transition-all duration-1000 ease-out" style="width: 0%" data-percent="90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-sm font-bold text-white uppercase tracking-wider">TypeScript</span>
+                            <span class="text-xs text-accent font-black">85%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-accent shadow-[0_0_15px_rgba(255,107,0,0.5)] transition-all duration-1000 ease-out" style="width: 0%" data-percent="85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-sm font-bold text-white uppercase tracking-wider">Node.js / Firebase</span>
+                            <span class="text-xs text-accent font-black">80%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-accent shadow-[0_0_15px_rgba(255,107,0,0.5)] transition-all duration-1000 ease-out" style="width: 0%" data-percent="80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="flex justify-between mb-3">
+                            <span class="text-sm font-bold text-white uppercase tracking-wider">UI/UX Design</span>
+                            <span class="text-xs text-accent font-black">85%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                            <div class="skill-bar h-full bg-accent shadow-[0_0_15px_rgba(255,107,0,0.5)] transition-all duration-1000 ease-out" style="width: 0%" data-percent="85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="mb-20 reveal">
+            <h2 class="text-4xl md:text-5xl font-black mb-6">
+                <span class="text-accent">02.</span> Selected Projects
+            </h2>
+            <p class="text-gray-400 max-w-2xl text-lg">A collection of some of my recent work, ranging from web applications to experimental tech projects.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-10">
+            <!-- Project Card -->
+            <div class="glass-card p-8 border-accent/10 hover:border-accent/40 hover:-translate-y-3 reveal">
+                <div class="w-full aspect-video bg-white/5 rounded-2xl mb-8 flex items-center justify-center text-gray-700 font-mono text-[10px] uppercase tracking-[0.3em] border border-white/5">
+                    Project Preview
+                </div>
+                <h3 class="text-2xl font-black mb-4 group-hover:text-accent transition-colors">Portfolio Website</h3>
+                <p class="text-gray-400 text-sm mb-8 leading-relaxed">Personal portfolio built with HTML/CSS/JS, featuring modern animations and responsive design.</p>
+                <div class="flex flex-wrap gap-2 mb-10">
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">HTML/CSS</span>
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">Vanilla JS</span>
+                </div>
+                <a href="#" class="w-full py-4 bg-accent text-black text-center font-black rounded-xl flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(255,107,0,0.3)] transition-all uppercase tracking-widest text-[10px]">
+                    View Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="glass-card p-8 border-accent/10 hover:border-accent/40 hover:-translate-y-3 reveal">
+                <div class="w-full aspect-video bg-white/5 rounded-2xl mb-8 flex items-center justify-center text-gray-700 font-mono text-[10px] uppercase tracking-[0.3em] border border-white/5">
+                    Project Preview
+                </div>
+                <h3 class="text-2xl font-black mb-4 group-hover:text-accent transition-colors">Digital Tools</h3>
+                <p class="text-gray-400 text-sm mb-8 leading-relaxed">Collection of useful web tools for productivity, including unit converters and text formatters.</p>
+                <div class="flex flex-wrap gap-2 mb-10">
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">React</span>
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">Tailwind</span>
+                </div>
+                <a href="#" class="w-full py-4 bg-accent text-black text-center font-black rounded-xl flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(255,107,0,0.3)] transition-all uppercase tracking-widest text-[10px]">
+                    View Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="glass-card p-8 border-accent/10 hover:border-accent/40 hover:-translate-y-3 reveal">
+                <div class="w-full aspect-video bg-white/5 rounded-2xl mb-8 flex items-center justify-center text-gray-700 font-mono text-[10px] uppercase tracking-[0.3em] border border-white/5">
+                    Project Preview
+                </div>
+                <h3 class="text-2xl font-black mb-4 group-hover:text-accent transition-colors">AI Experiments</h3>
+                <p class="text-gray-400 text-sm mb-8 leading-relaxed">Exploring AI APIs and building small apps like image generators and text analyzers.</p>
+                <div class="flex flex-wrap gap-2 mb-10">
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">Gemini AI</span>
+                    <span class="text-[9px] uppercase tracking-widest font-black text-accent px-3 py-1.5 bg-accent/10 rounded-lg">Node.js</span>
+                </div>
+                <a href="#" class="w-full py-4 bg-accent text-black text-center font-black rounded-xl flex items-center justify-center gap-3 hover:shadow-[0_0_20px_rgba(255,107,0,0.3)] transition-all uppercase tracking-widest text-[10px]">
+                    View Project <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 max-w-7xl mx-auto">
+        <div class="glass-card p-16 relative overflow-hidden border-accent/20 reveal">
+            <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-accent/10 via-transparent to-transparent -z-10"></div>
+            
+            <div class="relative z-10 grid md:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="text-5xl font-black mb-8 leading-tight">Let's work<br/><span class="text-accent">together.</span></h2>
+                    <p class="text-gray-400 text-xl mb-12 leading-relaxed">
+                        I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+                    </p>
+                    <a href="mailto:omakhatkar10@gmail.com" class="text-2xl md:text-3xl font-black text-accent hover:text-white transition-colors flex items-center gap-4 group">
+                        omakhatkar10@gmail.com <i data-lucide="arrow-up-right" class="w-8 h-8 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-2 gap-8">
+                    <a href="#" class="social-card flex flex-col gap-3 p-6 rounded-2xl border border-white/5 hover:border-accent/40 hover:bg-accent/5 transition-all group">
+                        <i data-lucide="instagram" class="text-accent group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-black uppercase tracking-widest">Instagram</span>
+                        <span class="text-xs text-gray-500">@mr.om_akhatkar</span>
+                    </a>
+                    <a href="#" class="social-card flex flex-col gap-3 p-6 rounded-2xl border border-white/5 hover:border-accent/40 hover:bg-accent/5 transition-all group">
+                        <i data-lucide="linkedin" class="text-accent group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-black uppercase tracking-widest">LinkedIn</span>
+                        <span class="text-xs text-gray-500">Om Akhatkar</span>
+                    </a>
+                    <a href="#" class="social-card flex flex-col gap-3 p-6 rounded-2xl border border-white/5 hover:border-accent/40 hover:bg-accent/5 transition-all group">
+                        <i data-lucide="github" class="text-accent group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-black uppercase tracking-widest">GitHub</span>
+                        <span class="text-xs text-gray-500">omakhatkar</span>
+                    </a>
+                    <a href="#" class="social-card flex flex-col gap-3 p-6 rounded-2xl border border-white/5 hover:border-accent/40 hover:bg-accent/5 transition-all group">
+                        <i data-lucide="twitter" class="text-accent group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-black uppercase tracking-widest">Twitter</span>
+                        <span class="text-xs text-gray-500">omakhatkar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="w-full h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent mb-16"></div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="text-sm text-gray-500 font-medium">
+                    © 2026 Om Akhatkar. All rights reserved.
+                </div>
+                <div class="flex gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">
+                    <a href="#" class="hover:text-accent transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-accent transition-colors">Terms</a>
+                    <a href="#" class="hover:text-accent transition-colors">Blog</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Loader Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const loaderBar = document.getElementById('loader-bar');
+            
+            loaderBar.style.width = '100%';
+            
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
+            }, 1500);
+        });
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.querySelectorAll('a, button, .skill-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const progressBar = document.getElementById('progress-bar');
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + "%";
+
+            // Navbar Background
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+                navbar.classList.remove('py-6');
+            } else {
+                navbar.classList.remove('bg-black/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+                navbar.classList.add('py-6');
+            }
+        });
+
+        // Floating Particles Generation
+        const container = document.getElementById('particles-container');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 4 + 2 + 'px';
+            particle.style.width = size;
+            particle.style.height = size;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.bottom = '-20px';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            container.appendChild(particle);
+        }
+
+        // Reveal on Scroll Logic
+        const revealElements = document.querySelectorAll('.reveal');
+        const skillBars = document.querySelectorAll('.skill-bar');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // If it's a skill item, animate the bar
+                    if (entry.target.id === 'about') {
+                        skillBars.forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-percent');
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+        revealObserver.observe(document.getElementById('about'));
+
+    </script>
+</body>
+</html>
